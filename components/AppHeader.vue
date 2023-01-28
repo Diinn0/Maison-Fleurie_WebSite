@@ -5,10 +5,7 @@
 <script>
 
 export default {
-  name: "AppHeader",
-  components: {
-    navbar
-  }
+  name: "AppHeader"
 }
 </script>
 
