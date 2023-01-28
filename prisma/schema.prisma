@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @unique @default(cuid())
+  name     String
+  mail     String
+  password String
+  role     Role
+}
+
+model Page {
+  id        String    @id @unique @default(cuid())
+  title     String
+  url       String
+  content   String
+  published DateTime?
+  updateat  DateTime? @updatedAt
+}
+
+model Image {
+  id   String @id @unique @default(cuid())
+  name String
+  url  String
+}
+
+model Cat {
+  id          String    @id @unique @default(cuid())
+  name        String
+  description String?
+  age         Int?
+  male        Boolean?
+  dateofbirth DateTime
+  sellable    Boolean   @default(false)
+  status      Status?
+  updateat    DateTime? @updatedAt
+}
+
+model Breeding {
+  id    String @id @unique @default(cuid())
+  month Int?
+  year  Int
+}
+
+model Notif {
+  id   String @id @unique @default(cuid())
+  mail String
+}
+
+enum Status {
+  Unavailable
+  Option
+  Reserved
+  Available
+}
+
+enum Role {
+  ADMIN
+}
