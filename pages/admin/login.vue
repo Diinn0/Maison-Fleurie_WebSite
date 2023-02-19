@@ -1,3 +1,45 @@
+<script>
+
+definePageMeta({
+  layout: false
+});
+
+const { signIn } = useSession();
+
+export default {
+  data() {
+    return {
+      mail: '',
+      pass: '',
+      submitted: false,
+      signIn: signIn,
+      mySignInHandler: mySignInHandler,
+    }
+  },
+  methods: {
+    onSubmit(e) {
+      this.submitted = true;
+
+      if (!this.email && !this.password) {
+        e.preventDefault()
+      }
+    }
+  }
+}
+
+const mySignInHandler = async ({ username, password }) => {
+  const { error, url } = await signIn('credentials', { username, password, redirect: false })
+  if (error) {
+    // Do your custom error handling here
+    alert('You have made a terrible mistake while entering your credentials')
+  } else {
+    // No error, continue with the sign in, e.g., by following the returned redirect:
+    // return navigateTo(url, { external: true })
+    alert("OUIIIIIII")
+  }
+}
+</script>
+
 <template>
   <section class="h-screen dark:bg-gray-800">
     <div class="container mx-auto px-6 py-12 h-full">
@@ -50,6 +92,7 @@
                 class="inline-block px-7 py-3 bg-red-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
+                @click="mySignInHandler({ username: mail, password: pass })"
             >
               Se connecter
             </button>
@@ -89,35 +132,6 @@
     </div>
   </section>
 </template>
-
-<script>
-
-definePageMeta({
-  layout: false,
-});
-
-export default {
-  data() {
-    return {
-      mail: '',
-      pass: '',
-      submitted: false
-    }
-  },
-  methods: {
-    onSubmit(e) {
-      this.submitted = true;
-
-      if (!this.email && !this.password) {
-        e.preventDefault()
-      }
-    }
-  }
-}
-
-
-</script>
-
 
 <style scoped>
 

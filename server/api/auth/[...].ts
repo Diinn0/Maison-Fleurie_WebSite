@@ -1,9 +1,14 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { NuxtAuthHandler } from '#auth'
 
+const runtimeConfig = useRuntimeConfig();
+
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: '541g54fdsg45d1fg54df654gdf45gsd4f5sdf1v5d7q8d4sx5',
+    secret: runtimeConfig.authSecret,
+    pages: {
+        signIn: '/admin/login',
+    },
     providers: [
         // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
         CredentialsProvider.default({
