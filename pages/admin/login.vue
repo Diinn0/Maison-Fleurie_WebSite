@@ -1,3 +1,45 @@
+<script>
+import {toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
+
+definePageMeta({
+  layout: false
+});
+
+const { signIn } = useSession();
+
+export default {
+  name: "index",
+  data() {
+    return {
+      email: '',
+      pass: '',
+      submitted: false,
+    }
+  },
+  methods: {
+    async mySignInHandler({username, password, callbackUrl}) {
+        this.submitted = true;
+
+        if (this.email && this.pass) {
+          const {error, url} = await signIn('credentials', {username, password, callbackUrl, redirect: false})
+          if (error) {
+            // Do your custom error handling here
+            toast.error("Identifiant incorrect", {
+              autoClose: 3000,
+              position: toast.POSITION.BOTTOM_RIGHT
+            });
+          } else {
+            // No error, continue with the sign in, e.g., by following the returned redirect:
+            return navigateTo(url, {external: true})
+          }
+        }
+      }
+    }
+}
+
+</script>
+
 <template>
   <section class="h-screen dark:bg-gray-800">
     <div class="container mx-auto px-6 py-12 h-full">
@@ -13,7 +55,7 @@
           <div
           >
             <!-- Email input -->
-            <p :class="{'dark:text-white' : mail || !submitted, 'text-red-600' : !mail && submitted, 'dark:text-red-600' : !mail && submitted}">Adresse mail</p>
+            <p :class="{'dark:text-white' : email || !submitted, 'text-red-600' : !email && submitted, 'dark:text-red-600' : !email && submitted}">Adresse mail</p>
 
             <div class="mb-6">
               <input
@@ -21,18 +63,18 @@
                   ref="mail"
                   type="text"
                   class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  :class="!mail && submitted ? 'border-red-500' :  'border-gray-300'"
+                  :class="!email && submitted ? 'border-red-500' :  'border-gray-300'"
                   placeholder=""
-                  v-model="mail"
+                  v-model="email"
               />
-              <label v-if="!mail && submitted" for="mail" class="text-xs text-red-600 dark:text-red-600">L'adresse mail est requis</label>
-              <p>{{ mail }}</p>
+              <label v-if="!email && submitted" for="mail" class="text-xs text-red-600 dark:text-red-600">L'adresse mail est requis</label>
             </div>
 
             <!-- Password input -->
             <p :class="{'dark:text-white' : pass || !submitted, 'text-red-600' : !pass && submitted, 'dark:text-red-600' : !pass && submitted}">Mot de passe</p>
             <div class="mb-6">
               <input
+                  id="password"
                   ref="password"
                   type="password"
                   class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -49,7 +91,7 @@
                 class="inline-block px-7 py-3 bg-red-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
-                @click="mySignInHandler({ username: mail, password: pass, callbackUrl: '/admin' })"
+                @click="mySignInHandler({ username: email, password: pass, callbackUrl: '/admin' })"
             >
               Se connecter
             </button>
@@ -89,53 +131,6 @@
     </div>
   </section>
 </template>
-
-<script setup >
-
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-
-definePageMeta({
-  layout: false
-});
-
-const { signIn } = useSession();
-
-let mail = "";
-let pass = "";
-let submitted = false;
-
-const onSubmit = (e) => {
-  submitted = true;
-  if (!mail || !pass) {
-    e.preventDefault();
-  }
-};
-
-const mySignInHandler = async ({ username, password, callbackUrl }) => {
-  submitted = true;
-
-  console.log(mail)
-  console.log(pass)
-  console.log(submitted)
-
-
-  if (mail && pass) {
-    const { error, url } = await signIn('credentials', { username, password, callbackUrl, redirect: false })
-    if (error) {
-      // Do your custom error handling here
-      toast("Identifiant incorrect", {
-        autoClose: 3000,
-      });
-    } else {
-      // No error, continue with the sign in, e.g., by following the returned redirect:
-      return navigateTo(url, { external: true })
-    }
-  }
-}
-
-</script>
-
 
 <style scoped>
 
