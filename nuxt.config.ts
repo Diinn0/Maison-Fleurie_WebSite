@@ -1,12 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// @ts-ignore
-// @ts-ignore
+
+
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
 
         }
     },
+    // @ts-ignore
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/i18n',
