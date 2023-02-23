@@ -7,7 +7,6 @@
 const headers = useRequestHeaders(['cookie']);
 const { data: token } = await useFetch('/api/token', { headers })
 
-
 definePageMeta({
   middleware: 'auth'
 })

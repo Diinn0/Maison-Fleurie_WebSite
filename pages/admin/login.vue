@@ -1,45 +1,3 @@
-<script>
-import {toast} from "vue3-toastify";
-import 'vue3-toastify/dist/index.css';
-
-definePageMeta({
-  layout: false
-});
-
-const { signIn } = useSession();
-
-export default {
-  name: "index",
-  data() {
-    return {
-      email: '',
-      pass: '',
-      submitted: false,
-    }
-  },
-  methods: {
-    async mySignInHandler({username, password, callbackUrl}) {
-        this.submitted = true;
-
-        if (this.email && this.pass) {
-          const {error, url} = await signIn('credentials', {username, password, callbackUrl, redirect: false})
-          if (error) {
-            // Do your custom error handling here
-            toast.error("Identifiant incorrect", {
-              autoClose: 3000,
-              position: toast.POSITION.BOTTOM_RIGHT
-            });
-          } else {
-            // No error, continue with the sign in, e.g., by following the returned redirect:
-            return navigateTo(url, {external: true})
-          }
-        }
-      }
-    }
-}
-
-</script>
-
 <template>
   <section class="h-screen dark:bg-gray-800">
     <div class="container mx-auto px-6 py-12 h-full">
@@ -131,6 +89,49 @@ export default {
     </div>
   </section>
 </template>
+
+<script>
+import {toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
+
+definePageMeta({
+  layout: false,
+  middleware: "not-auth"
+});
+
+const { signIn } = useSession();
+
+export default {
+  name: "index",
+  data() {
+    return {
+      email: '',
+      pass: '',
+      submitted: false,
+    }
+  },
+  methods: {
+    async mySignInHandler({username, password, callbackUrl}) {
+      this.submitted = true;
+
+      if (this.email && this.pass) {
+        const {error, url} = await signIn('credentials', {username, password, callbackUrl, redirect: false})
+        console.log(error)
+        if (error) {
+          // Do your custom error handling here
+          toast.error("Identifiant incorrect", {
+            autoClose: 3000,
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
+        } else {
+          // No error, continue with the sign in, e.g., by following the returned redirect:
+          return navigateTo(url, {external: true})
+        }
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 
