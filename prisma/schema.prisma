@@ -11,15 +11,16 @@ datasource db {
 }
 
 model User {
-  id       String @id @unique @default(cuid())
-  name     String
-  mail     String
-  password String
-  role     Role
+  id        Int @id @unique @default(autoincrement())
+  firstname String
+  lastname  String
+  mail      String @unique
+  password  String
+  role      Role
 }
 
 model Page {
-  id        String    @id @unique @default(cuid())
+  id        Int    @id @unique @default(autoincrement())
   title     String
   url       String
   content   String
@@ -28,13 +29,13 @@ model Page {
 }
 
 model Image {
-  id   String @id @unique @default(cuid())
+  id   Int @id @unique @default(autoincrement())
   name String
   url  String
 }
 
 model Cat {
-  id          String    @id @unique @default(cuid())
+  id          Int    @id @unique @default(autoincrement())
   name        String
   description String?
   age         Int?
@@ -46,13 +47,13 @@ model Cat {
 }
 
 model Breeding {
-  id    String @id @unique @default(cuid())
+  id    Int @id @unique @default(autoincrement())
   month Int?
   year  Int
 }
 
 model Notif {
-  id   String @id @unique @default(cuid())
+  id   Int @id @unique @default(autoincrement())
   mail String
 }
 
