@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// @ts-ignore
+
+
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
@@ -7,6 +8,7 @@ export default defineNuxtConfig({
         },
         authSecret: '',
     },
+    // @ts-ignore
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/i18n',
