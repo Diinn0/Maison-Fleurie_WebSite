@@ -99,8 +99,6 @@ definePageMeta({
 import {toast} from "vue3-toastify";
 import 'vue3-toastify/dist/index.css';
 
-const { signIn } = useSession();
-
 export default {
   name: "index",
   data() {
@@ -115,6 +113,7 @@ export default {
       this.submitted = true;
 
       if (this.email && this.pass) {
+        const { signIn } = useSession();
         const {error, url} = await signIn('credentials', {username, password, callbackUrl, redirect: false})
         if (error) {
           // Do your custom error handling here
