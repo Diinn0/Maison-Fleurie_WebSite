@@ -91,15 +91,13 @@
 </template>
 
 <script>
-import {toast} from "vue3-toastify";
-import 'vue3-toastify/dist/index.css';
-
 definePageMeta({
   layout: false,
   middleware: "not-auth"
 });
 
-const { signIn } = useSession();
+import {toast} from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
 
 export default {
   name: "index",
@@ -115,8 +113,8 @@ export default {
       this.submitted = true;
 
       if (this.email && this.pass) {
+        const { signIn } = useSession();
         const {error, url} = await signIn('credentials', {username, password, callbackUrl, redirect: false})
-        console.log(error)
         if (error) {
           // Do your custom error handling here
           toast.error("Identifiant incorrect", {

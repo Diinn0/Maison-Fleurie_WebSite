@@ -8,9 +8,32 @@ const prisma = new PrismaClient();
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
     secret: process.env.NUXT_AUTH_SECRET,
-    // pages: {
-    //     signIn: '/admin/login',
-    // },
+    pages: {
+        signIn: '/admin/login',
+    },
+    callbacks: {
+        // Callback when the JWT is created / updated, see https://next-auth.js.org/configuration/callbacks#jwt-callback
+        // @ts-ignore
+        jwt: async ({token, user}) => {
+            const isSignIn = user ? true : false;
+            if (isSignIn) {
+                const userObj = {
+                    id: user ? user.id || '' : '',
+                    role: user ? (user as any).role || '' : '',
+                    firstname: user ? (user as any).firstname || '' : '',
+                    lastname: user ? (user as any).lastname || '' : '',
+                    mail: user ? (user as any).mail || '' : '',
+                };
+                token.user = user ? userObj || null : null;
+            }
+            return Promise.resolve(token);
+        },
+        // Callback whenever session is checked, see https://next-auth.js.org/configuration/callbacks#session-callback
+        session: async ({session, token}) => {
+            (session as any).user = token.user;
+            return Promise.resolve(session);
+        },
+    },
     providers: [
         // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
         CredentialsProvider.default({
@@ -24,9 +47,9 @@ export default NuxtAuthHandler({
                 username: { label: 'Username', type: 'text', placeholder: '(hint: jsmith)' },
                 password: { label: 'Password', type: 'password', placeholder: '(hint: hunter2)' }
             },
-            authorize(credentials: any) {
-                
-                return prisma.user.findFirst({
+            async authorize(credentials: any) {
+
+                let returnV = await prisma.user.findFirst({
                     where: {
                         // @ts-ignore
                         mail: credentials?.username
@@ -48,6 +71,9 @@ export default NuxtAuthHandler({
                         // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                     }
                 });
+
+                console.log(returnV)
+                return returnV
             }
         })
     ]
