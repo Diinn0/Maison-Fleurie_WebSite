@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int @id @unique @default(autoincrement())
+  id        Int    @id @unique @default(autoincrement())
   firstname String
   lastname  String
   mail      String @unique
@@ -20,7 +20,7 @@ model User {
 }
 
 model Page {
-  id        Int    @id @unique @default(autoincrement())
+  id        Int       @id @unique @default(autoincrement())
   title     String
   url       String
   content   String
@@ -29,16 +29,15 @@ model Page {
 }
 
 model Image {
-  id   Int @id @unique @default(autoincrement())
+  id   Int    @id @unique @default(autoincrement())
   name String
   url  String
 }
 
 model Cat {
-  id          Int    @id @unique @default(autoincrement())
+  id          Int       @id @unique @default(autoincrement())
   name        String
   description String?
-  age         Int?
   male        Boolean?
   dateofbirth DateTime
   sellable    Boolean   @default(false)
@@ -47,13 +46,13 @@ model Cat {
 }
 
 model Breeding {
-  id    Int @id @unique @default(autoincrement())
+  id    Int  @id @unique @default(autoincrement())
   month Int?
   year  Int
 }
 
 model Notif {
-  id   Int @id @unique @default(autoincrement())
+  id   Int    @id @unique @default(autoincrement())
   mail String
 }
 

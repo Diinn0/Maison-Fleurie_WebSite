@@ -1,6 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { NuxtAuthHandler } from '#auth'
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import {comparePassword, encryptPassword} from "~/utils/password";
 
 const prisma = new PrismaClient();
@@ -43,12 +43,7 @@ export default NuxtAuthHandler({
             // You can specify whatever fields you are expecting to be submitted.
             // e.g. domain, username, password, 2FA token, etc.
             // You can pass any HTML attribute to the <input> tag through the object.
-            credentials: {
-                username: { label: 'Username', type: 'text', placeholder: '(hint: jsmith)' },
-                password: { label: 'Password', type: 'password', placeholder: '(hint: hunter2)' }
-            },
             async authorize(credentials: any) {
-
                 let returnV = await prisma.user.findFirst({
                     where: {
                         // @ts-ignore
@@ -72,7 +67,6 @@ export default NuxtAuthHandler({
                     }
                 });
 
-                console.log(returnV)
                 return returnV
             }
         })
