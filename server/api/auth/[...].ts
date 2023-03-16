@@ -48,7 +48,6 @@ export default NuxtAuthHandler({
                 password: { label: 'Password', type: 'password', placeholder: '(hint: hunter2)' }
             },
             async authorize(credentials: any) {
-
                 let returnV = await prisma.user.findFirst({
                     where: {
                         // @ts-ignore
