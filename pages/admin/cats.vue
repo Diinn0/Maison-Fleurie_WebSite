@@ -1,5 +1,7 @@
 <template>
 
+  <a href="cat/add">Ajouter un chat</a>
+
   <p>Liste des chats</p>
 
   <table>
@@ -14,7 +16,7 @@
     <tbody>
     <tr v-for="cat in cats">
       <td>{{ cat.name }}</td>
-      <td>{{ cat.male === true ? "Male" : "Femelle"}}</td>
+      <td>{{ cat.sexe }}</td>
       <td>{{ $dateFormat(new Date(cat.dateofbirth)) }}</td>
       <td>{{ $getAge(new Date(cat.dateofbirth)) }} ans</td>
     </tr>
@@ -26,13 +28,17 @@
 
 <script setup lang="ts">
 
+definePageMeta({
+  layout: "admin",
+  middleware: 'auth'
+});
+
 //Fetch cats
 const { data: cats } = useFetch('/api/cats/cats', {
   method: 'GET',
 });
 
 const { $dateFormat, $getAge } = useNuxtApp()
-
 
 </script>
 

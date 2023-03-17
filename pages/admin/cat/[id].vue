@@ -2,10 +2,12 @@
   <p>{{ $route.params.id }}</p>
 </template>
 
-<script>
-export default {
-  name: "cat"
-}
+<script setup>
+definePageMeta({
+  layout: "admin",
+  middleware: 'auth'
+});
+
 </script>
 
 <style scoped>

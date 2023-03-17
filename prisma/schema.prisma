@@ -38,10 +38,10 @@ model Cat {
   id          Int       @id @unique @default(autoincrement())
   name        String
   description String?
-  male        Boolean?
+  sexe        Sexe      @default(Male)
   dateofbirth DateTime
   sellable    Boolean   @default(false)
-  status      Status?
+  status      Status    @default(Unavailable)
   updateat    DateTime? @updatedAt
 }
 
@@ -65,4 +65,9 @@ enum Status {
 
 enum Role {
   ADMIN
+}
+
+enum Sexe {
+  Male
+  Femelle
 }
