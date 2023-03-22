@@ -4,7 +4,7 @@
 
   <p>Liste des chats</p>
 
-  <table>
+  <table class="dark:text-white">
     <thead>
     <tr>
       <th>Nom du chat</th>
@@ -14,11 +14,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="cat in cats">
-      <td>{{ cat.name }}</td>
-      <td>{{ cat.sexe }}</td>
-      <td>{{ $dateFormat(new Date(cat.dateofbirth)) }}</td>
-      <td>{{ $getAge(new Date(cat.dateofbirth)) }} ans</td>
+    <tr v-for="cat in cats" @click="navigateTo('cat/' + cat.id)" class="hover:cursor-pointer">
+        <td>{{ cat.name }}</td>
+        <td>{{ cat.sexe }}</td>
+        <td>{{ $dateFormat(new Date(cat.dateofbirth)) }}</td>
+        <td>{{ $getAge(new Date(cat.dateofbirth)) }} ans</td>
     </tr>
     </tbody>
   </table>
@@ -34,7 +34,7 @@ definePageMeta({
 });
 
 //Fetch cats
-const { data: cats } = useFetch('/api/cats/cats', {
+const { data: cats } = useFetch('/api/cat/cats', {
   method: 'GET',
 });
 

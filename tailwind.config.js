@@ -16,5 +16,12 @@ module.exports = {
         ],
         borderColor: ["dark", "dark-focus", "dark-focus-within"],
         textColor: ["dark", "dark-hover", "dark-active"]
-    }
+    },
+    plugins: [
+        require('flowbite')
+    ],
+    content: [
+        // other files...
+        "./node_modules/flowbite.{js,ts}"
+    ],
 };
