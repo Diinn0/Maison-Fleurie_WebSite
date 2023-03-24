@@ -1,9 +1,8 @@
-import {PrismaClient} from "@prisma/client";
-
+import prisma from '~/utils/prisma';
 export default eventHandler(async (event) => {
     // @ts-ignore
-    const id = parseInt(event.context.params.id) as number
-    
+    const id = Number(getQuery(event).id)
+
     if (!Number.isInteger(id)) {
         throw createError({
             statusCode: 400,
@@ -11,7 +10,6 @@ export default eventHandler(async (event) => {
         })
     }
 
-    const prisma = new PrismaClient();
     let cat = await prisma.cat.findUnique({
         where: {
             // @ts-ignore

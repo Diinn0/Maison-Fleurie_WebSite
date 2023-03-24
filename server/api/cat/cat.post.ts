@@ -1,10 +1,8 @@
-import {PrismaClient} from "@prisma/client";
+import prisma from '~/utils/prisma';
 
 export default eventHandler(async (event) => {
     const body = await readBody(event)
-
-    const prisma = new PrismaClient();
-    // @ts-ignore
+        // @ts-ignore
     const post = await prisma.cat.create({
         // @ts-ignore
         data: {
