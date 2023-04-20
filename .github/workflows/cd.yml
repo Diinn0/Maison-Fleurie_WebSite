@@ -1,0 +1,27 @@
+name: Deploy to VPS and start Nuxt server
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Deploy code and start Nuxt server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_PRIVATE_KEY }}
+        script: |
+          cd /home/site-chat/
+          git pull
+          npm run start
