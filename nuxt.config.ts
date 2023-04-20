@@ -2,12 +2,6 @@
 
 
 export default defineNuxtConfig({
-    runtimeConfig: {
-        public: {
-
-        },
-        authSecret: '',
-    },
     // @ts-ignore
     modules: [
         '@nuxtjs/tailwindcss',

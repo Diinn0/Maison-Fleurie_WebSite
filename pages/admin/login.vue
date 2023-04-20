@@ -113,7 +113,7 @@ export default {
       this.submitted = true;
 
       if (this.email && this.pass) {
-        const { signIn } = useSession();
+        const { signIn } = useAuth();
         const {error, url} = await signIn('credentials', {username, password, callbackUrl, redirect: false})
         if (error) {
           // Do your custom error handling here

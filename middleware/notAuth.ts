@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to) => {
-    const { status } = useSession()
+    const { status } = useAuth()
     // Return immeadiatly if user is already authenticated
     if (status.value === 'authenticated') {
         return navigateTo("/admin", { external: true});
