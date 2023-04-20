@@ -5,6 +5,9 @@ import {comparePassword, encryptPassword} from "~/utils/password";
 
 const prisma = new PrismaClient();
 
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config();
+
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
     secret: process.env.NUXT_AUTH_SECRET,
