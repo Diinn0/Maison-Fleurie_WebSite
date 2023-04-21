@@ -19,15 +19,6 @@ model User {
   role      Role
 }
 
-model Page {
-  id        Int       @id @unique @default(autoincrement())
-  title     String
-  url       String
-  content   String
-  published DateTime?
-  updateat  DateTime? @updatedAt
-}
-
 model Image {
   id   Int    @id @unique @default(autoincrement())
   name String
@@ -54,6 +45,24 @@ model Breeding {
 model Notif {
   id   Int    @id @unique @default(autoincrement())
   mail String
+}
+
+model Page {
+  id        Int       @id @unique @default(autoincrement())
+  title     String
+  url       String
+  content   String
+  published DateTime?
+  updateat  DateTime? @updatedAt
+}
+
+model Onglet {
+  id       Int      @unique @default(autoincrement())
+  name     String
+  url      String
+  parentId Int?
+  parent   Onglet?  @relation("parentOnglet", fields: [parentId], references: [id])
+  children Onglet[] @relation("parentOnglet")
 }
 
 enum Status {

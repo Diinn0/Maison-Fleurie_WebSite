@@ -30,7 +30,6 @@ jobs:
           cd /home/site-chat/
           git fetch && git reset --hard origin/main && git pull
           npm install
-          pm2 restart Chatterie
 
     - shell: pwsh
       # Give an id to the step, so we can reference it later
