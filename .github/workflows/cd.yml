@@ -12,11 +12,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        # Checkout as many commits as needed for the diff
+        fetch-depth: 2
 
     - name: Install dependencies
       run: npm install
 
-    - name: Deploy code and start Nuxt server
+    - name: Deploy code
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -27,4 +30,42 @@ jobs:
           cd /home/site-chat/
           git fetch && git reset --hard origin/main && git pull
           npm install
+          pm2 restart Chatterie
+
+    - shell: pwsh
+      # Give an id to the step, so we can reference it later
+      id: check_file_changed
+      run: |
+        # Diff HEAD with the previous commit
+        $diff = git diff --name-only HEAD^ HEAD
+
+        # Check if a file under docs/ or with the .md extension has changed (added, modified, deleted)
+        $SourceDiff = $diff | Where-Object { $_ -match '^prisma/schema.prisma' }
+        $HasDiff = $SourceDiff.Length -gt 0
+
+        # Set the output named "docs_changed"
+        Write-Host "::set-output name=docs_changed::$HasDiff"
+
+      # Run the step only with "docs_changed" equals "True"
+    - name: migrate database
+      if: steps.check_file_changed.outputs.docs_changed == 'True'
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/site-chat/
+          npx prisma migrate deploy
+
+    - name: start Nuxt server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/site-chat/
           pm2 restart Chatterie
