@@ -67,4 +67,5 @@ jobs:
         port: 22
         script: |
           cd /home/site-chat/
+          npm run build
           pm2 restart Chatterie
