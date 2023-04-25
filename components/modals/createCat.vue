@@ -89,12 +89,6 @@
 </template>
 
 <script setup>
-import { initFlowbite } from 'flowbite'
-import { Modal } from 'flowbite';
-
-onMounted(() => {
-  initFlowbite();
-})
 
 let name = ref("");
 let description = ref("");
