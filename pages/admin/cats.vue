@@ -207,9 +207,9 @@ const {$dateFormat, $getAge} = useNuxtApp()
               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sexe</label>
               <ul class="grid w-full gap-6 md:grid-cols-2">
                 <li>
-                  <input type="radio" id="hosting-small" name="hosting2" value="Male" class="hidden peer" required
+                  <input type="radio" id="hosting-small2" name="hosting2" value="Male" class="hidden peer" required
                          v-model="sexe2">
-                  <label for="hosting-small"
+                  <label for="hosting-small2"
                          class="inline-flex items-center justify-between w-full p-1.5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                     <div class="block">
                       <div class="w-full text-lg font-semibold">Male</div>
@@ -222,9 +222,9 @@ const {$dateFormat, $getAge} = useNuxtApp()
                   </label>
                 </li>
                 <li>
-                  <input type="radio" id="hosting-big" name="hosting2" value="Femelle" class="hidden peer"
+                  <input type="radio" id="hosting-big2" name="hosting2" value="Femelle" class="hidden peer"
                          v-model="sexe2">
-                  <label for="hosting-big"
+                  <label for="hosting-big2"
                          class="inline-flex items-center justify-between w-full p-1.5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-pink-500 peer-checked:border-pink-600 peer-checked:text-pink-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                     <div class="block">
                       <div class="w-full text-lg font-semibold">Femelle</div>
