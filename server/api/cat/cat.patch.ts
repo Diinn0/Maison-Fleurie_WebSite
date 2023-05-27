@@ -4,8 +4,6 @@ export default eventHandler(async (event) => {
 
     const body = await readBody(event)
 
-    console.log(body)
-
         // @ts-ignore
     const updateCat = await prisma.cat.update({
         where: {

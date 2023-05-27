@@ -50,8 +50,8 @@ model Notif {
 model Page {
   id        Int       @id @unique @default(autoincrement())
   title     String
-  url       String
-  content   String
+  url       String    @unique
+  content   Bytes?    @db.LongBlob
   published DateTime?
   updateat  DateTime? @updatedAt
 }

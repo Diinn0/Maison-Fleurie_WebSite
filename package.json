@@ -18,12 +18,16 @@
   "dependencies": {
     "@nuxtjs/color-mode": "^3.2.0",
     "@prisma/client": "^4.12.0",
+    "@tinymce/tinymce-vue": "^5.1.0",
     "aws-sdk": "^2.1359.0",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "flowbite": "^1.6.5",
     "mock-aws-s3": "^4.0.2",
     "nock": "^13.3.0",
+    "slug": "^8.2.2",
+    "tinymce": "^6.4.2",
+    "vue": "^3.3.2",
     "vue3-toastify": "^0.1.7"
   }
 }
