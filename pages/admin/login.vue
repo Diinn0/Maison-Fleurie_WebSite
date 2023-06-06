@@ -63,7 +63,7 @@
             <a
                 class="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
                 style="background-color: #3b5998"
-                href="#!"
+                @click="signInWithFacebook()"
                 role="button"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
@@ -125,6 +125,20 @@ export default {
           // No error, continue with the sign in, e.g., by following the returned redirect:
           return navigateTo(url, {external: true})
         }
+      }
+    },
+    async signInWithFacebook() {
+      const {signIn} = useAuth();
+      const {error, url} = await signIn('facebook');
+      if (error) {
+        // Do your custom error handling here
+        toast.error("Autorisation refusée", {
+          autoClose: 3000,
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+      } else {
+        // No error, continue with the sign in, e.g., by following the returned redirect:
+        return navigateTo(url, {external: true})
       }
     }
   }

@@ -2,6 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { NuxtAuthHandler } from '#auth'
 import { PrismaClient } from '@prisma/client'
 import {comparePassword, encryptPassword} from "~/utils/password";
+import FacebookProvider from "next-auth/providers/facebook";
 
 const prisma = new PrismaClient();
 
@@ -38,6 +39,12 @@ export default NuxtAuthHandler({
         },
     },
     providers: [
+        // @ts-ignore Import is exported on .default during SSR, so we need to call it this way. May be fixed via Vite at some point
+        FacebookProvider.default({
+            idToken: true,
+            clientId: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        }),
         // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
         CredentialsProvider.default({
             // The name to display on the sign in form (e.g. 'Sign in with...')

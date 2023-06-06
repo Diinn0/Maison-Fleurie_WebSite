@@ -63,6 +63,7 @@ model Onglet {
   parentId Int?
   parent   Onglet?  @relation("parentOnglet", fields: [parentId], references: [id])
   children Onglet[] @relation("parentOnglet")
+  order    Int
 }
 
 enum Status {

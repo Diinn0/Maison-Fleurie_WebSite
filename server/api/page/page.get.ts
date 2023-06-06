@@ -9,13 +9,16 @@ export default eventHandler(async (event) => {
         where: {
             // @ts-ignore
             url: url
-        }
+        },
     })
 
     // @ts-ignore
-    const blob = new Buffer.from(page.content);
-    // @ts-ignore
-    page.content = blob.toString('utf8');
+    if (page.content) {
+        // @ts-ignore
+        const blob = new Buffer.from(page.content);
+        // @ts-ignore
+        page.content = blob.toString('utf8');
+    }
 
     return page
 })

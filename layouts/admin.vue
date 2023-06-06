@@ -10,6 +10,7 @@ onMounted(() => {
 const headers = useRequestHeaders(['cookie']);
 const { data: token } = await useFetch('/api/token', { headers })
 
+
 </script>
 
 <template>
@@ -33,7 +34,7 @@ const { data: token } = await useFetch('/api/token', { headers })
                         <div>
                             <button type="button" class="flex " aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="text-gray-900 rounded-lg dark:text-white">
-                                    Bonjour {{ token.user.firstname }} {{ token.user.lastname }} !
+                                    Bonjour {{ token.name ? token.name : (token.user.firstname + " " + token.user.lastname) }} !
                                 </span>
                             </button>
                         </div>
