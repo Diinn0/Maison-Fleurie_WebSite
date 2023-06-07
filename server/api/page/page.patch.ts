@@ -14,7 +14,7 @@ export default eventHandler(async (event) => {
         data: {
             // @ts-ignore
             title: body.title,
-            url: slug(body.title),
+            url: slug(body.title + "-" + Math.floor(Math.random() * 100)),
             // @ts-ignore
             content: Buffer.from(body.content, 'utf-8')
         },

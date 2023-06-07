@@ -61,7 +61,6 @@ export default NuxtAuthHandler({
                     },
                 }).then((user) => {
                     if (user) {
-
                         if (comparePassword(credentials?.password, user.password)) {
                             // Any object returned will be saved in `user` property of the JWT
                             return user

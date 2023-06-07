@@ -10,7 +10,7 @@ export default eventHandler(async (event) => {
         // @ts-ignore
         data: {
             title: body.name,
-            url: slug(body.name),
+            url: slug(body.name + "-" + Math.floor(Math.random() * 100)),
         },
     })
 
