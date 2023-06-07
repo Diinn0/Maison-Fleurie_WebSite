@@ -2,7 +2,20 @@
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 dotenv.config();
 
+
 export default defineNuxtConfig({
+    // @ts-ignore
+    runtimeConfig: {
+        public: {
+            siteUrl: process.env.ORIGIN,
+            siteName: 'La maison fleurie',
+            siteDescription: 'Elevage de maine coon dans l\'Aisne',
+            language: 'fr-fr', // prefer more explicit language codes like `en-AU` over `en`
+        }
+    },
+    extends: [
+        'nuxt-seo-kit'
+    ],
     // @ts-ignore
     modules: [
         '@nuxtjs/tailwindcss',

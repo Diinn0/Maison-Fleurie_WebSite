@@ -1,4 +1,5 @@
 <template>
+  <SeoKit />
   <Head>
   </Head>
   <Body class="dark:bg-gray-900">
