@@ -2,7 +2,7 @@
   <nav class="navbar is-light">
     <div class="container">
       <div class="navbar-brand">
-        <nuxt-link class="navbar-item" to="/">Nuxt Auth</nuxt-link>
+        <a class="navbar-item" to="/">Nuxt Auth</a>
         <button class="button navbar-burger">
           <span></span>
           <span></span>
@@ -16,14 +16,14 @@
               My Account
             </a>
             <div class="navbar-dropdown">
-              <nuxt-link class="navbar-item" to="/profile">My Profile</nuxt-link>
+              <a class="navbar-item" to="/profile">My Profile</a>
               <hr class="navbar-divider"/>
               <a class="navbar-item">Logout</a>
             </div>
           </div>
           <template>
-            <nuxt-link class="navbar-item" to="/register">Register</nuxt-link>
-            <nuxt-link class="navbar-item" to="/login">Log In</nuxt-link>
+            <a class="navbar-item" to="/register">Register</a>
+            <a class="navbar-item" to="/login">Log In</a>
           </template>
         </div>
       </div>
