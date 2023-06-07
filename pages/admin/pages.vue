@@ -8,7 +8,7 @@
         </button>
     </div>
 
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid lg:grid-cols-4 lg:gap-4 sm:grid-cols-2 sm:gap-2">
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" v-for="page in pages">
             <a href="#">
                 <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
