@@ -1,9 +1,8 @@
 import prisma from '~/utils/prisma';
 
 export default eventHandler(async (event) => {
-    // @ts-ignore
-    const url = getQuery(event).url
 
+    const url = getQuery(event).url
 
     let page = await prisma.page.findUnique({
         where: {

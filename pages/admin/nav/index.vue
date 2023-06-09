@@ -64,6 +64,7 @@ const update = async () => {
     method: 'PATCH',
     body: {
       onglets: getParents(root),
+      updateInfo: false
     },
   })
 };
