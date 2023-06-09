@@ -54,6 +54,7 @@ model Page {
   content   Bytes?    @db.LongBlob
   published DateTime?
   updateat  DateTime? @updatedAt
+  Onglet    Onglet[]
 }
 
 model Onglet {
@@ -61,9 +62,11 @@ model Onglet {
   name     String
   url      String
   parentId Int?
+  pageId   Int?
   parent   Onglet?  @relation("parentOnglet", fields: [parentId], references: [id])
   children Onglet[] @relation("parentOnglet")
   order    Int
+  Page     Page?    @relation(fields: [pageId], references: [id])
 }
 
 enum Status {

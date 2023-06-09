@@ -34,9 +34,9 @@
       </div>
       <div>
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choisissez une page</label>
-        <select v-model="pageUrl" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected value="#">Choisissez une page</option>
-          <option v-for="page in pages" :value="page.url" class="dark:text-white">{{page.title}}</option>
+        <select v-model="pageId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected value="">Choisissez une page</option>
+          <option v-for="page in pages" :value="page.id" class="dark:text-white">{{page.title}}</option>
           <option value="contact">Contact</option>
         </select>
       </div>
@@ -79,7 +79,7 @@ const {data: pages} = useFetch('/api/page/pages', {
 let name = ref("");
 let url = ref("");
 let type = ref("url");
-let pageUrl = ref("#");
+let pageId = ref("");
 
 const {data: onglet} = useFetch('/api/onglet/onglet?id=' + route.params.id, {
   method: 'GET',
@@ -88,28 +88,25 @@ const {data: onglet} = useFetch('/api/onglet/onglet?id=' + route.params.id, {
 if (onglet.value) {
   name.value = onglet.value.name;
   type.value = onglet.value.type;
-
-  if (onglet.value.url) {
-    let page = pages.value.filter((page) => {page.url === onglet.value.url})
-    if (page) {
+  if (onglet.value.pageId) {
       type.value = "page";
+      pageId.value = onglet.value.pageId;
     } else {
       type.value = "url";
+      url.value = onglet.value.url;
     }
-    url.value = onglet.value.url
-  } else {
-    type.value = "menu"
-  }
-
-  switch (onglet.value.type) {
-    case 'url':
-      url.value = onglet.value.url
-      break;
-    case 'page':
-
-      break;
-  }
+} else {
+  type.value = "menu"
 }
+
+  // switch (onglet.value.type) {
+  //   case 'url':
+  //     url.value = onglet.value.url
+  //     break;
+  //   case 'page':
+  //
+  //     break;
+  // }
 
 const sendData = async () => {
 
@@ -117,7 +114,10 @@ const sendData = async () => {
     case 'url':
       break;
     case 'page':
-      url.value = "/page/" + pageUrl.value;
+      if (pageId.value === "contact") {
+        url.value = "/page/contact";
+        pageId.value = null;
+      }
       break;
     default:
       url.value= "";
@@ -130,6 +130,7 @@ const sendData = async () => {
       id: Number(route.params.id),
       name: name.value,
       url: url.value,
+      pageId: pageId.value,
       updateInfo: true
     }
   })

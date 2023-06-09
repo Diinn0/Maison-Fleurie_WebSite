@@ -11,7 +11,9 @@ export default eventHandler(async (event) => {
             },
             data: {
                 name: body.name,
-                url: body.url
+                url: body.url,
+                //@ts-ignore
+                pageId: body.pageId,
             },
         })
     } else {

@@ -21,7 +21,7 @@
         <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:bg-white dark:bg-gray-800 dark:border-gray-700">
           <li v-for="onglet in onglets">
             <a v-if="!hasChildren(onglet) && onglet.parentId == null"
-               :href="onglet.url"
+               :href="onglet.pageId ? '/page/' + pages.find((page) => page.id == onglet.pageId).url : onglet.url"
                class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent"
                aria-current="page">{{ onglet.name }}
             </a>
@@ -87,6 +87,10 @@ const {data: cats} = useFetch('/api/cat/cats', {
 });
 
 const {data: onglets} = useFetch('/api/onglet/onglets', {
+  method: 'GET',
+});
+
+const {data: pages} = useFetch('/api/page/pages', {
   method: 'GET',
 });
 
