@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
+import {toast} from "vue3-toastify";
 
 // initialize components based on data attribute selectors
 onMounted(() => {
@@ -10,6 +11,12 @@ onMounted(() => {
 const headers = useRequestHeaders(['cookie']);
 const { data: token } = await useFetch('/api/token', { headers })
 
+const signOut = async () => {
+  const {signOut} = useAuth();
+  await signOut({redirect: true, callbackUrl: "/admin/login"})
+
+
+};
 
 </script>
 
@@ -41,16 +48,7 @@ const { data: token } = await useFetch('/api/token', { headers })
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                             <ul class="py-1" role="none">
                                 <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                                </li>
-                                <li>
-                                    <NuxtLink href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</NuxtLink>
+                                    <button @click="signOut()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</button>
                                 </li>
                             </ul>
                         </div>
