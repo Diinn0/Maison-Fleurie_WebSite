@@ -112,6 +112,7 @@ const sendData = async () => {
 
   switch (type.value) {
     case 'url':
+      pageId.value = null;
       break;
     case 'page':
       if (pageId.value === "contact") {
@@ -121,6 +122,7 @@ const sendData = async () => {
       break;
     default:
       url.value= "";
+      pageId.value = null;
       break;
   }
 

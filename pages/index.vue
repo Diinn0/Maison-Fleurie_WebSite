@@ -7,20 +7,6 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      cats: [
-        {
-          name: 'Fluffy',
-          image: '/path/to/image.jpg',
-          description: 'Fluffy est un chat magnifique avec une personnalité douce.',
-        },
-        // Plus de chats ici...
-      ],
-    };
-  },
-};
 </script>
 
 <style scoped>

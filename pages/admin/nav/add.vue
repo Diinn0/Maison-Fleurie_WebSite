@@ -86,9 +86,6 @@ const sendData = async () => {
   switch (type.value) {
     case 'url':
       break;
-    case 'page':
-      pageId.value = "/page/" + pageId.value;
-      break;
     default:
       url.value= "";
       break;
