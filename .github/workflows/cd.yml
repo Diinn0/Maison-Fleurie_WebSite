@@ -57,6 +57,7 @@ jobs:
         script: |
           cd /home/site-chat/
           npx prisma migrate deploy
+          npm install
 
     - name: start Nuxt server
       uses: appleboy/ssh-action@master
