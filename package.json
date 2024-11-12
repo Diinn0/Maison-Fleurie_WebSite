@@ -18,7 +18,7 @@
     "prisma": "^4.12.0"
   },
   "dependencies": {
-    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxtjs/color-mode": "^3.5.2",
     "@prisma/client": "^4.12.0",
     "@tinymce/tinymce-vue": "^5.1.0",
     "aws-sdk": "^2.1359.0",
